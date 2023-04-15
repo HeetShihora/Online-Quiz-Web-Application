@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title%}
+Acknowledgement
+{%endblock%}
+{% block body %}
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-header">
+           <h4> Quiz Generated Successfully</h4>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title"><b>Unique Quiz id : {{id}}</b> </h4>
+            <p class="card-text">Please note this Quiz id for future reference</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

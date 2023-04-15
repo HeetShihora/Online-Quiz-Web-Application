@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block title%}
+Make Quiz
+{%endblock%}
+{% block body %}
+
+<div class="container d-flex">
+
+
+    <div class="card shadow mt-5   ">
+        <h1 class="card-header display- text-left">Create Quiz</h1>
+        <div class="card-body">
+
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <p>Upload Excel File :
+                <p>
+                    <input type="file" name="file" id="file" required
+                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel ">
+                    <button class="btn btn-success upload">Upload</button>
+            </form>
+        </div>
+    </div>
+    <div class="image"><img src="{{ url_for('static',filename='img.jpg')}}" alt="" class="img-fluid " ></div>
+</div>
+
+<!-- <div class="col-4 border border-primary box">
+                hello
+            </div>
+            <div class="col-1"></div> -->
+
+
+
+
+{% endblock %}

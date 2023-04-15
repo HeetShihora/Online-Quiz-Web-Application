@@ -1,0 +1,172 @@
+<style>
+    /* Style for the questions card */
+    /* Style for the questions card */
+    .questions.card {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1) !important;
+        margin: 30px;
+    }
+
+    /* Style for the questions list */
+    .questions.card li {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    /* Style for the options list */
+    .questions.card ol {
+        list-style-type: decimal;
+        margin-left: 20px;
+        margin-bottom: 15px;
+    }
+
+    /* Style for the radio buttons and labels */
+    .questions.card .form-check {
+        margin-bottom: 10px;
+    }
+
+    .questions.card .form-check-input {
+        margin-right: 10px;
+    }
+
+    .questions.card .form-check-label {
+        font-size: 16px;
+        color: #666;
+    }
+
+    /* Style for the result paragraph */
+    .questions.card #result {
+        font-size: 16px;
+        color: #77d48c;
+        margin-top: 10px;
+    }
+
+    /* Additional styles for radio buttons */
+    .questions.card .form-check-input[type="radio"]:checked+.form-check-label::before {
+        background-color: #6bb0f9;
+        border-color: #59a8fc;
+    }
+
+    .questions.card .form-check-input[type="radio"]:not(:checked)+.form-check-label::before {
+        background-color: #fff;
+        border-color: #333;
+    }
+
+    /* Hover effect on radio buttons */
+    .questions.card .form-check-input[type="radio"]:hover+.form-check-label::before {
+        border-color: #007bff;
+    }
+
+    /* Style for the questions card */
+    /* Style for the questions card */
+    .questions.card {
+        background-image: linear-gradient(to right top, #d0e3f8, #bcecfb, #80e5f0, #9ff7e8, #baf2dd);
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        font-size: 30px;
+        /* Set font size to 30px */
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* Hover effect on questions card */
+    .questions.card:hover {
+        transform: scale(1.05);
+    }
+
+    /* Active effect on questions card */
+    .questions.card:active {
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+        /* Apply active box shadow */
+    }
+</style>
+
+{% extends "layout.html" %}
+{% block title%}
+Start Quiz
+{%endblock%}
+
+{% block body %}
+<div class="container">
+    <div class="card mt-5 quiz_start ">
+        <div class="card-header">
+            <h4>Result</h4>
+        </div>
+        <div class="card-body text-center">
+            Congratulations You got {{ct}} marks out of {{total}} marks.
+        </div>
+    </div>
+    <form action="/" >
+        <ol>
+
+            {% for q,r,a in info%}
+
+            <div class="questions card">
+                
+                <li>{{q[1]}}</li>
+                <ol>
+
+                    {%if q[2]==a %}
+                    <li class="bg-success">{{q[2]}}</li>
+                    {%elif q[2]==a and q[2]!=r %}
+                    <li class="bg-danger">{{q[2]}}</li>
+                    {%elif q[2]!=a and q[2]==r %}
+                    <li class="bg-danger">{{q[2]}}</li>
+                    {%else%}
+                    <li>{{q[2]}}</li>
+                    {%endif%}
+
+
+                    {%if q[3]==a %}
+                    <li class="bg-success">{{q[3]}}</li>
+                    {%elif q[3]==a and q[3]!=r %}
+                    <li class="bg-danger">{{q[3]}}</li>
+                    {%elif q[3]!=a and q[3]==r %}
+                    <li class="bg-danger">{{q[3]}}</li>
+                    {%else%}
+                    <li>{{q[3]}}</li>
+                    {%endif%}
+
+                    {%if q[4]==a %}
+                    <li class="bg-success">{{q[4]}}</li>
+                    {%elif q[4]==a and q[4]!=r %}
+                    <li class="bg-danger">{{q[4]}}</li>
+                    {%elif q[4]!=a and q[4]==r %}
+                    <li class="bg-danger">{{q[4]}}</li>
+                    {%else%}
+                    <li>{{q[4]}}</li>
+                    {%endif%}
+
+
+                    {%if q[5]==a %}
+                    <li class="bg-success">{{q[5]}}</li>
+                    {%elif q[5]==a and q[5]!=r %}
+                    <li class="bg-danger">{{q[5]}}</li>
+                    {%elif q[5]!=a and q[5]==r %}
+                    <li class="bg-danger">{{q[5]}}</li>
+                    {%else%}
+                    <li>{{q[5]}}</li>
+                    {%endif%}
+
+                </ol>
+                <!-- <button class="btn btn-success" onsubmit="return cal()">Next Question</button> -->
+                
+            </div>
+
+            {%endfor%}
+
+        </ol>
+        <button class="btn btn-success center"  id="submit" type="submit">Home</button>
+    </form>
+</div>
+
+
+
+
+
+
+{% endblock %}

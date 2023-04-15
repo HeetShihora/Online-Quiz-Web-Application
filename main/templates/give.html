@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title%}
+Give Quiz
+{%endblock%}
+{% block body %}
+<div class="container">
+    <div class="card mt-5 quiz_start">
+        <div class="card-header">
+            <h4>Fill below details</h4>
+        </div>
+        <div class="card-body text-center">
+            <form action="/start" method="post" enctype="multipart/form-data">
+                <div>
+                    <label for="quiz_id">Quiz Id
+                        <span class="text-danger">*</span> : </label>
+
+
+                    <input type="text" id="quiz_id" name="quiz_id" placeholder="id" required>
+                </div>
+                <button class="btn btn-success mt-3" id="full">Start Quiz</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function getFullscreenElement() {
+        return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement || document.msFullscreenElement;
+    }
+    document.fullscreenElement
+
+
+    function toggleFullscreen() {
+        if (getFullscreenElement()) {
+            document.exitFullscreen();
+
+        }
+        else {
+            document.documentElement.requestFullscreen().catch(console.log);
+        }
+    }
+
+    let x = document.getElementById("exit");
+    let y = document.getElementById("full");
+    x.addEventListener("click", func);
+    y.addEventListener("click", func);
+    function func() {
+        toggleFullscreen();
+    }
+</script>
+{% endblock %}
