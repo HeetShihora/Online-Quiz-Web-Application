@@ -1,3 +1,42 @@
+<style>
+    .copy-link {
+        --height: 36px;
+
+        display: flex;
+        max-width: 450px;
+    }
+
+    .copy-link-input {
+        flex-grow: 1;
+        padding: 0 8px;
+        font-size: 14px;
+        border: 1px solid #cccccc;
+        border-right: none;
+        outline: none;
+    }
+
+    .copy-link-input:hover {
+        background: #eeeeee;
+    }
+
+    .copy-link-button {
+        flex-shrink: 0;
+        width: var(--height);
+        height: var(--height);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dddddd;
+        color: #333333;
+        outline: none;
+        border: 1px solid #cccccc;
+        cursor: pointer;
+    }
+
+    .copy-link-button:hover {
+        background: #cccccc;
+    }
+</style>
 {% extends "layout.html" %}
 {% block title%}
 Acknowledgement
@@ -6,12 +45,18 @@ Acknowledgement
 <div class="container">
     <div class="card mt-5">
         <div class="card-header">
-           <h4> Quiz Generated Successfully</h4>
+            <h4> Quiz Generated Successfully</h4>
         </div>
         <div class="card-body">
             <h4 class="card-title"><b>Unique Quiz id : {{id}}</b> </h4>
+            <div class="copy-link">
+                <input type="text" class="copy-link-input" value="{{id}}"" readonly>
+                <button type=" button" class="copy-link-button">
+                <span class="material-icons">Copy</span>
+                </button>
+            </div>
             <p class="card-text">Please note this Quiz id for future reference</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a href="/" class="btn btn-primary">Go Home</a>
         </div>
     </div>
 </div>

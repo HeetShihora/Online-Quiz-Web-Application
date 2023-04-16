@@ -97,70 +97,62 @@ Start Quiz
             <h4>Result</h4>
         </div>
         <div class="card-body text-center">
-            Congratulations You got {{ct}} marks out of {{total}} marks.
+            Congratulations You got {{marks}} marks out of {{total}} marks.
         </div>
     </div>
-    <form action="/" >
+    <form action="/">
         <ol>
 
             {% for q,r,a in info%}
 
             <div class="questions card">
-                
+
                 <li>{{q[1]}}</li>
                 <ol>
 
-                    {%if q[2]==a %}
-                    <li class="bg-success">{{q[2]}}</li>
-                    {%elif q[2]==a and q[2]!=r %}
-                    <li class="bg-danger">{{q[2]}}</li>
-                    {%elif q[2]!=a and q[2]==r %}
-                    <li class="bg-danger">{{q[2]}}</li>
-                    {%else%}
+                    {%if q[2]!=r and q[2]!=a%}
                     <li>{{q[2]}}</li>
+                    {%elif q[2]==r and q[2]!=a%}
+                    <li class="bg-danger">{{q[2]}}</li>
+                    {%elif q[2]==a%}
+                    <li class="bg-success">{{q[2]}}</li>
                     {%endif%}
 
 
-                    {%if q[3]==a %}
-                    <li class="bg-success">{{q[3]}}</li>
-                    {%elif q[3]==a and q[3]!=r %}
-                    <li class="bg-danger">{{q[3]}}</li>
-                    {%elif q[3]!=a and q[3]==r %}
-                    <li class="bg-danger">{{q[3]}}</li>
-                    {%else%}
+                    {%if q[3]!=r and q[3]!=a%}
                     <li>{{q[3]}}</li>
+                    {%elif q[3]==r and q[3]!=a%}
+                    <li class="bg-danger">{{q[3]}}</li>
+                    {%elif q[3]==a%}
+                    <li class="bg-success">{{q[3]}}</li>
                     {%endif%}
 
-                    {%if q[4]==a %}
-                    <li class="bg-success">{{q[4]}}</li>
-                    {%elif q[4]==a and q[4]!=r %}
-                    <li class="bg-danger">{{q[4]}}</li>
-                    {%elif q[4]!=a and q[4]==r %}
-                    <li class="bg-danger">{{q[4]}}</li>
-                    {%else%}
+                    {%if q[4]!=r and q[4]!=a%}
                     <li>{{q[4]}}</li>
+                    {%elif q[4]==r and q[4]!=a%}
+                    <li class="bg-danger">{{q[4]}}</li>
+                    {%elif q[4]==a%}
+                    <li class="bg-success">{{q[4]}}</li>
                     {%endif%}
 
 
-                    {%if q[5]==a %}
-                    <li class="bg-success">{{q[5]}}</li>
-                    {%elif q[5]==a and q[5]!=r %}
-                    <li class="bg-danger">{{q[5]}}</li>
-                    {%elif q[5]!=a and q[5]==r %}
-                    <li class="bg-danger">{{q[5]}}</li>
-                    {%else%}
+                    {%if q[5]!=r and q[5]!=a%}
                     <li>{{q[5]}}</li>
+                    {%elif q[5]==r and q[5]!=a%}
+                    <li class="bg-danger">{{q[5]}}</li>
+                    {%elif q[5]==a%}
+                    <li class="bg-success">{{q[5]}}</li>
                     {%endif%}
 
                 </ol>
                 <!-- <button class="btn btn-success" onsubmit="return cal()">Next Question</button> -->
-                
+
             </div>
 
             {%endfor%}
 
         </ol>
-        <button class="btn btn-success center"  id="submit" type="submit">Home</button>
+        <button class="btn btn-success center" id="submit" type="submit">Home</button>
     </form>
 </div>
 
