@@ -1,6 +1,8 @@
+
 <style>
     /* Style for the questions card */
     /* Style for the questions card */
+
     .questions.card {
         background-color: #f8f9fa;
         padding: 20px;
@@ -83,6 +85,11 @@
         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
         /* Apply active box shadow */
     }
+
+    .deactive {
+        pointer-events: none;
+        cursor: pointer;
+    }
 </style>
 
 {% extends "layout.html" %}
@@ -151,27 +158,26 @@ Start Quiz
 </div>
 
 <script>
-    function getFullscreenElement(){
-        return document.fullscreenElement||document.webkitFullscreenElement||document.mozFullscreenElement||document.msFullscreenElement;
+    function getFullscreenElement() {
+        return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement || document.msFullscreenElement;
     }
     document.fullscreenElement
-    
-    
-    function toggleFullscreen(){
-        if(getFullscreenElement())
-        {
+
+
+    function toggleFullscreen() {
+        if (getFullscreenElement()) {
             document.exitFullscreen();
-    
+
         }
-        else{
+        else {
             document.documentElement.requestFullscreen().catch(console.log);
         }
     }
-    
+
     let x = document.getElementById("exit");
-    let y=document.getElementById("full");
+    let y = document.getElementById("full");
     function func() {
-      toggleFullscreen();
+        toggleFullscreen();
     }
 </script>
 

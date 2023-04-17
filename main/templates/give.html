@@ -1,3 +1,10 @@
+<script type="text/javascript">
+    function disableBack() { window.history.forward(); }
+
+    setTimeout("disableBack()", 0);
+    window.onunload = function () { null };
+</script>
+
 {% extends "layout.html" %}
 {% block title%}
 Give Quiz
@@ -22,29 +29,5 @@ Give Quiz
         </div>
     </div>
 </div>
-<script>
-    function getFullscreenElement() {
-        return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement || document.msFullscreenElement;
-    }
-    document.fullscreenElement
 
-
-    function toggleFullscreen() {
-        if (getFullscreenElement()) {
-            document.exitFullscreen();
-
-        }
-        else {
-            document.documentElement.requestFullscreen().catch(console.log);
-        }
-    }
-
-    let x = document.getElementById("exit");
-    let y = document.getElementById("full");
-    x.addEventListener("click", func);
-    y.addEventListener("click", func);
-    function func() {
-        toggleFullscreen();
-    }
-</script>
 {% endblock %}
