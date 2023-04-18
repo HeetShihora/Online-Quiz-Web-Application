@@ -71,6 +71,7 @@
         font-size: 30px;
         /* Set font size to 30px */
         transition: transform 0.3s ease-in-out;
+
     }
 
     /* Hover effect on questions card */
@@ -83,6 +84,16 @@
         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
         /* Apply active box shadow */
     }
+
+    .result {
+        width: 300px;
+    }
+
+    #home {
+        margin-left: 40%;
+        width: 150px;
+        margin-bottom: 100px;
+    }
 </style>
 
 {% extends "layout.html" %}
@@ -92,12 +103,12 @@ Start Quiz
 
 {% block body %}
 <div class="container">
-    <div class="card mt-5 quiz_start ">
+    <div class="card mt-5 result ">
         <div class="card-header">
             <h4>Result</h4>
         </div>
         <div class="card-body text-center">
-            Congratulations You got {{marks}} marks out of {{total}} marks.
+            <h4> Congratulations You got {{marks}} marks out of {{total}} marks.</h4>
         </div>
     </div>
     <form action="/">
@@ -109,6 +120,12 @@ Start Quiz
 
                 <li>{{q[1]}}</li>
                 <ol>
+                    <!-- {%if r==empty %}
+                    <p>No resposne</p>
+                    <p>Answer : {{a}}</p>
+
+
+                    {%else%} -->
 
                     {%if q[2]!=r and q[2]!=a%}
                     <li>{{q[2]}}</li>
@@ -144,17 +161,24 @@ Start Quiz
                     <li class="bg-success">{{q[5]}}</li>
                     {%endif%}
 
+                    <!-- {%endif%} -->
+
+
+
+
+
+
                 </ol>
-                <!-- <button class="btn btn-success" onsubmit="return cal()">Next Question</button> -->
+
 
             </div>
 
             {%endfor%}
 
         </ol>
-        <button class="btn btn-success center" id="submit" type="submit">Home</button>
-    </form>
 </div>
+<button class="btn btn-success center" id="home" type="submit">Home</button>
+</form>
 
 
 

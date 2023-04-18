@@ -7,7 +7,13 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import os
 import csv
+import cv2
+
+# import time
+import csv
 import openpyxl
+# import pyautogui
+# from face import *
 from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
@@ -34,6 +40,8 @@ def upload():
     fields = []
     if request.method == 'POST':
         f = request.files['file']
+        time = request.form.get("time")
+        print("******", time, "*********")
         f.save(f.filename)
 
         id = uuid.uuid4()
@@ -64,6 +72,13 @@ def upload():
                 ct += 1
                 mysql.connection.commit()
                 cursor.close()
+
+            cursor = mysql.connection.cursor()
+            cursor.execute(''' INSERT INTO time VALUES(%s,%s)''',
+                           (id, time))
+
+            mysql.connection.commit()
+            cursor.close()
         except:
             return render_template('error.html', msg='Could not load data from mysql server')
     return render_template('acknowledgement.html', id=id)
@@ -71,15 +86,19 @@ def upload():
 
 @app.route('/give')
 def give():
+    # pyautogui.press('f11')
     return render_template('give.html')
 
 
 @app.route('/start', methods=['POST'])
 def start():
     if request.method == 'POST':
+        # start_detection()
         x = request.form.get("quiz_id")
+
         qid = str(x)
         qid = qid.strip()
+
         try:
             cursor = mysql.connection.cursor()
 
@@ -89,12 +108,21 @@ def start():
             questions = cursor.fetchall()
             mysql.connection.commit()
             cursor.close()
+
+            cursor = mysql.connection.cursor()
+
+            s = """select time from time where quiz_id=%s"""
+
+            cursor.execute(s, (qid,))
+            time = cursor.fetchall()
+            mysql.connection.commit()
+            cursor.close()
         except:
             return render_template('error.html', msg='Could not load data from mysql server')
         if len(questions) == 0:
             return render_template('error.html', msg='No questions found for this quiz id')
 
-        return render_template('start.html', questions=questions)
+        return render_template('start.html', questions=questions, time=time)
 
 
 @app.route('/submit', methods=['POST'])
@@ -136,8 +164,14 @@ def submit():
     if len(questions) == 0:
         return render_template('error.html', msg='Please check your quiz id.')
     for i in range(no_que):
-        res = request.form.get((str(i+1)))
-        res = res.strip()
+
+        x = request.form.get((str(i+1)))
+        res = str(x)
+        # print(type(res))
+        if len(res) != 0:
+            res = res.strip()
+        else:
+            res = ''
         ans = str(answers[i])
         le = len(ans)
         temp = ans[2:le-3:]
@@ -169,7 +203,8 @@ def submit():
     print(correct_ans)
     print('\n\n')
     info = zip(que, response, correct_ans)
-    return render_template('answers.html', info=info, marks=ct, total=len(que))
+    empty = ''
+    return render_template('answers.html', info=info, marks=ct, total=len(que), empty=empty)
 
 
 app.run(host='127.0.0.1', port=3000, debug=True)

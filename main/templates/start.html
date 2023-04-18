@@ -1,188 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<style>
-    /* Style for the questions card */
-    /* Style for the questions card */
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Quiz</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
-    .questions.card {
-        background-color: #f8f9fa;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1) !important;
-        margin: 30px;
-    }
+    <link href="{{ url_for('static',filename='app.css')}}" rel="stylesheet" />
+    <style>
+        /* Style for the questions card */
+        /* Style for the questions card */
 
-    /* Style for the questions list */
-    .questions.card li {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #333;
-    }
+        .questions.card {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1) !important;
+            margin: 30px;
+        }
 
-    /* Style for the options list */
-    .questions.card ol {
-        list-style-type: decimal;
-        margin-left: 20px;
-        margin-bottom: 15px;
-    }
+        /* Style for the questions list */
+        .questions.card li {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
 
-    /* Style for the radio buttons and labels */
-    .questions.card .form-check {
-        margin-bottom: 10px;
-    }
+        /* Style for the options list */
+        .questions.card ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
 
-    .questions.card .form-check-input {
-        margin-right: 10px;
-    }
+        /* Style for the radio buttons and labels */
+        .questions.card .form-check {
+            margin-bottom: 10px;
+        }
 
-    .questions.card .form-check-label {
-        font-size: 16px;
-        color: #666;
-    }
+        .questions.card .form-check-input {
+            margin-right: 10px;
+        }
 
-    /* Style for the result paragraph */
-    .questions.card #result {
-        font-size: 16px;
-        color: #77d48c;
-        margin-top: 10px;
-    }
+        .questions.card .form-check-label {
+            font-size: 16px;
+            color: #666;
+        }
 
-    /* Additional styles for radio buttons */
-    .questions.card .form-check-input[type="radio"]:checked+.form-check-label::before {
-        background-color: #6bb0f9;
-        border-color: #59a8fc;
-    }
+        /* Style for the time paragraph */
+        .questions.card #time {
+            font-size: 16px;
+            color: #77d48c;
+            margin-top: 10px;
+        }
 
-    .questions.card .form-check-input[type="radio"]:not(:checked)+.form-check-label::before {
-        background-color: #fff;
-        border-color: #333;
-    }
+        /* Additional styles for radio buttons */
+        .questions.card .form-check-input[type="radio"]:checked+.form-check-label::before {
+            background-color: #6bb0f9;
+            border-color: #59a8fc;
+        }
 
-    /* Hover effect on radio buttons */
-    .questions.card .form-check-input[type="radio"]:hover+.form-check-label::before {
-        border-color: #007bff;
-    }
+        .questions.card .form-check-input[type="radio"]:not(:checked)+.form-check-label::before {
+            background-color: #fff;
+            border-color: #333;
+        }
 
-    /* Style for the questions card */
-    /* Style for the questions card */
-    .questions.card {
-        background-image: linear-gradient(to right top, #d0e3f8, #bcecfb, #80e5f0, #9ff7e8, #baf2dd);
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        font-size: 30px;
-        /* Set font size to 30px */
-        transition: transform 0.3s ease-in-out;
-    }
+        /* Hover effect on radio buttons */
+        .questions.card .form-check-input[type="radio"]:hover+.form-check-label::before {
+            border-color: #007bff;
+        }
 
-    /* Hover effect on questions card */
-    .questions.card:hover {
-        transform: scale(1.05);
-    }
+        /* Style for the questions card */
+        /* Style for the questions card */
+        .questions.card {
+            background-image: linear-gradient(to right top, #d0e3f8, #bcecfb, #80e5f0, #9ff7e8, #baf2dd);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 30px;
+            /* Set font size to 30px */
+            transition: transform 0.3s ease-in-out;
+        }
 
-    /* Active effect on questions card */
-    .questions.card:active {
-        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-        /* Apply active box shadow */
-    }
+        /* Hover effect on questions card */
+        .questions.card:hover {
+            transform: scale(1.05);
+        }
 
-    .deactive {
-        pointer-events: none;
-        cursor: pointer;
-    }
-</style>
+        /* Active effect on questions card */
+        .questions.card:active {
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+            /* Apply active box shadow */
+        }
 
-{% extends "layout.html" %}
-{% block title%}
-Start Quiz
-{%endblock%}
+        .deactive {
+            pointer-events: none;
+            cursor: pointer;
+        }
 
-{% block body %}
-<div class="container" id="full">
-    <form action="/submit" method='POST'>
-        <label for="quiz_id">Quiz Id
-            <span class="text-danger">*</span> : </label>
+        #exit {
+            margin-left: 40%;
+            width: 150px;
+            margin-bottom: 100px;
+        }
+
+        .card.quiz {
+            margin-top: 50px;
+            position: static;
+            top: 200px;
+            width: fit-content;
+            margin-left: 35%;
+            padding-bottom: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+
+        }
+
+        #time {
+            width: fit-content;
+            position: sticky;
+            margin-top: 10px;
+            top: 10px;
+            right: 100px;
+            left: 90%;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 class="display-3 card" id="time"></h2>
+    <div class="container " id="full">
+        <form action="/submit" method='POST'>
+            <div class="card quiz">
+                <label for="quiz_id">Quiz Id
+                    <span class="text-danger">*</span> : </label>
 
 
-        <input type="text" id="quiz_id" name="quiz_id" placeholder="id" required>
-        <ol>
-
-            {% for q in questions%}
-            <!-- <form action="" required id="{{q}}"> -->
-            <!-- <fieldset id="{{q}}"> -->
-            <div class="questions card ">
-                <li>{{q[1]}}</li>
-                <ol>
-                    <div class="form-check">
-
-                        <input class="form-check-input" type="radio" name={{q[0]}} id={{q[2]}} value="{{q[2]}}"
-                            required>
-                        <label class="form-check-label" for={{q[2]}}>
-                            {{q[2]}}
-                        </label>
-                    </div>
-
-                    <div class="form-check">
-
-                        <input class="form-check-input" type="radio" name={{q[0]}} id={{q[3]}} value="{{q[3]}}">
-                        <label class="form-check-label" for={{q[3]}}>
-                            {{q[3]}}
-                        </label>
-                    </div>
-
-                    <div class="form-check">
-
-                        <input class="form-check-input" type="radio" name={{q[0]}} id={{q[4]}} value="{{q[4]}}">
-                        <label class="form-check-label" for={{q[4]}}>
-                            {{q[4]}}
-                        </label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name={{q[0]}} id={{q[5]}} value="{{q[5]}}">
-                        <label class="form-check-label" for={{q[5]}}>
-                            {{q[5]}}
-                        </label>
-                    </div>
-                    <!-- </form> -->
-                    <!-- </fieldset> -->
-                </ol>
-                <!-- <button class="btn btn-success" onsubmit="return cal()">Next Question</button> -->
-                <p id="result"></p>
+                <input type="text" id="quiz_id" name="quiz_id" placeholder="id" required>
             </div>
-            {%endfor%}
+            <ol>
 
-        </ol>
-        <button class="btn btn-success" id="exit" type="submit">Submit</button>
+                {% for q in questions%}
+                <!-- <form action="" required id="{{q}}"> -->
+                <!-- <fieldset id="{{q}}"> -->
+                <div class="questions card ">
+                    <li>{{q[1]}}</li>
+                    <ol>
+                        <div class="form-check">
+
+                            <input class="form-check-input" type="radio" name={{q[0]}} id={{q[2]}} value="{{q[2]}}">
+                            <label class="form-check-label" for={{q[2]}}>
+                                {{q[2]}}
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+
+                            <input class="form-check-input" type="radio" name={{q[0]}} id={{q[3]}} value="{{q[3]}}">
+                            <label class="form-check-label" for={{q[3]}}>
+                                {{q[3]}}
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+
+                            <input class="form-check-input" type="radio" name={{q[0]}} id={{q[4]}} value="{{q[4]}}">
+                            <label class="form-check-label" for={{q[4]}}>
+                                {{q[4]}}
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name={{q[0]}} id={{q[5]}} value="{{q[5]}}">
+                            <label class="form-check-label" for={{q[5]}}>
+                                {{q[5]}}
+                            </label>
+                        </div>
+
+                    </ol>
+
+                </div>
+                {%endfor%}
+
+
+            </ol>
+    </div>
+    <button class="btn btn-success" id="exit" type="submit">Submit</button>
     </form>
-</div>
 
-<script>
-    function getFullscreenElement() {
-        return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullscreenElement || document.msFullscreenElement;
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static',filename='script.js')}}"></script>
+<script src="{{ url_for('static', filename='start.js' )}}""></script>
+<script >
+    function myFunc(vars) {
+        return vars
     }
-    document.fullscreenElement
+    let time = myFunc({{ time| tojson}});
 
-
-    function toggleFullscreen() {
-        if (getFullscreenElement()) {
-            document.exitFullscreen();
-
+    let timeSecond = time * 60;
+    const timeH = document.querySelector(" #time"); displayTime(timeSecond); const countDown = setInterval(() => {
+        timeSecond--;
+        displayTime(timeSecond);
+        if (timeSecond == 0 || timeSecond < 1) {
+            endCount();
+            clearInterval(countDown);
         }
-        else {
-            document.documentElement.requestFullscreen().catch(console.log);
-        }
+    }, 1000);
+
+    function displayTime(second) {
+        const min = Math.floor(second / 60);
+        const sec = Math.floor(second % 60);
+        timeH.innerHTML = `
+      ${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}
+      `;
     }
 
-    let x = document.getElementById("exit");
-    let y = document.getElementById("full");
-    function func() {
-        toggleFullscreen();
+    function endCount() {
+        timeH.innerHTML = "Time out";
+
+        document.getElementById("exit").click();
+
     }
+
+    // *********************
+    // This Code is for only the floating card in right bottom corner
+    // **********************
+
+    const touchButton = document.querySelector(".float-text");
+    const card = document.querySelector(".float-card-info");
+    const close = document.querySelector(".gg-close-r");
+
+    touchButton.addEventListener("click", moveCard);
+    close.addEventListener("click", moveCard);
+
+    function moveCard() {
+        card.classList.toggle("active");
+    }
+
 </script>
 
-
-
-
-
-{% endblock %}
+</html>
