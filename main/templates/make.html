@@ -13,7 +13,7 @@ Make Quiz
 
             <form action="/upload" method="post" enctype="multipart/form-data">
                 <label for="time">Time in Minutes (between 1 and 120):</label>
-                <input type="number" id="time" name="time" min="1" max="120">
+                <input type="number" id="time" name="time" min="1" max="120" required>
                 <p>Upload Excel File :
                 <p>
                     <input type="file" name="file" id="file" required accept=".csv">
@@ -24,10 +24,6 @@ Make Quiz
     <div class="image"><img src="{{ url_for('static',filename='img.jpg')}}" alt="" class="img-fluid "></div>
 </div>
 
-<!-- <div class="col-4 border border-primary box">
-                hello
-            </div>
-            <div class="col-1"></div> -->
 
 
 

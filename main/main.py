@@ -8,12 +8,8 @@ import MySQLdb.cursors
 import os
 import csv
 import cv2
-
-# import time
 import csv
 import openpyxl
-# import pyautogui
-# from face import *
 from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
@@ -41,7 +37,7 @@ def upload():
     if request.method == 'POST':
         f = request.files['file']
         time = request.form.get("time")
-        print("******", time, "*********")
+        # print("******", time, "*********")
         f.save(f.filename)
 
         id = uuid.uuid4()
@@ -50,10 +46,8 @@ def upload():
         try:
             with open(f.filename, mode='r')as file:
 
-                # reading the CSV file
                 csvFile = csv.reader(file)
 
-                # displaying the contents of the CSV file
                 for lines in csvFile:
                     li.append(lines)
         except:
@@ -63,6 +57,8 @@ def upload():
         for i in range(1, len(li)):
             x = li[i]
             data.append(x)
+        if len(data) == 0:
+            return render_template('error.html', msg='File is empty')
 
         try:
             for x in data:
@@ -86,14 +82,14 @@ def upload():
 
 @app.route('/give')
 def give():
-    # pyautogui.press('f11')
+
     return render_template('give.html')
 
 
 @app.route('/start', methods=['POST'])
 def start():
     if request.method == 'POST':
-        # start_detection()
+
         x = request.form.get("quiz_id")
 
         qid = str(x)
@@ -167,7 +163,7 @@ def submit():
 
         x = request.form.get((str(i+1)))
         res = str(x)
-        # print(type(res))
+
         if len(res) != 0:
             res = res.strip()
         else:

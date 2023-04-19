@@ -25,17 +25,28 @@
     }
 
     /* Style for the radio buttons and labels */
-    .questions.card .form-check {
-        margin-bottom: 10px;
-    }
+     .questions.card .form-check {
+            border: 2px ;
+            border-style: groove;
+           /* background-color: rgb(242, 138, 11);*/
+           background-image: linear-gradient(to right top, #d0e3f8, #bcecfb, #80e5f0, #9ff7e8, #baf2dd);
+            margin-bottom: 10px;
+            width: 100%;
+            height: 2em;
+        }
 
-    .questions.card .form-check-input {
-        margin-right: 10px;
-    }
+        .questions.card .form-check-input {
+            border:2px solid;
+           /*background-color: #f8f9fa;*/
+            margin-right: 10px;
+            
+            
+        }
 
     .questions.card .form-check-label {
         font-size: 16px;
-        color: #666;
+        color: #0e0505;
+          
     }
 
     /* Style for the result paragraph */
@@ -64,15 +75,20 @@
     /* Style for the questions card */
     /* Style for the questions card */
     .questions.card {
-        background-image: linear-gradient(to right top, #d0e3f8, #bcecfb, #80e5f0, #9ff7e8, #baf2dd);
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        font-size: 30px;
-        /* Set font size to 30px */
-        transition: transform 0.3s ease-in-out;
+           /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrRBaok7J87VZ9mCdIf2pNSyk2BwY7cGEBXA&usqp=CAU");    
+              
+            background-image: linear-gradient(to right top, #f8d0bb, #fbae6c, #f096a5, #f790c8, #baf2dd);
+          */
+         
+          background-image: linear-gradient(to right top, #6fe3e1,#5257e5 );
 
-    }
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 30px;
+            /* Set font size to 30px */
+            transition: transform 0.3s ease-in-out;
+        }
 
     /* Hover effect on questions card */
     .questions.card:hover {
@@ -104,11 +120,12 @@ Start Quiz
 {% block body %}
 <div class="container">
     <div class="card mt-5 result ">
-        <div class="card-header">
-            <h4>Result</h4>
+        <div class="card-header" style="  background-image: linear-gradient(to right top, #6fe3e1,#5257e5 );" >
+            <h4 style = "text-align: center;"><b>Result</b></h4>
+            
         </div>
         <div class="card-body text-center">
-            <h4> Congratulations You got {{marks}} marks out of {{total}} marks.</h4>
+            <h4> Congratulations🎉🎉 You got {{marks}} marks out of {{total}} marks.</h4>
         </div>
     </div>
     <form action="/">
