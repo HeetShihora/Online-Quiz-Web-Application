@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Face Detection</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Face Detection</h1>
+    <input type="file" id="imageInput">
+    <button onclick="uploadImage()">Upload</button>
+    <p id="result"></p>
+
+    <script>
+        function uploadImage() {
+            var imageInput = document.getElementById('imageInput');
+            var file = imageInput.files[0];
+
+            var formData = new FormData();
+            formData.append('image', file);
+
+            $.ajax({
+                url: '/detect_face',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // Process the response from the server
+                    if (response.status === 'face_left') {
+                        // Face has left the frame, display appropriate message
+                        document.getElementById('result').innerText = 'Face has left the frame';
+                    } else {
+                        // Face detected within the frame, display appropriate message
+                        document.getElementById('result').innerText = 'Face detected within frame';
+                    }
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
