@@ -12,6 +12,7 @@ import csv
 import cv2
 import threading
 import time
+import re
 last_seen_time = None
 cheat = 0
 cheat_ct = 0
@@ -29,9 +30,118 @@ def main():
     return render_template("index.html")
 
 
+@app.route('/admin')
+def admin():
+    return render_template("login1.html")
+
+
 @app.route("/make")
 def make():
     return render_template("make.html")
+
+
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
+
+
+@app.route('/view')
+def view():
+    return render_template('view.html')
+
+
+
+
+@app.route('/admin_login', methods=["POST","GET"])
+def admin_login():
+    print('heellsdfds')
+    login_email = request.form.get('login_email')
+    login_password = request.form.get('login_password')
+    cursor = mysql.connection.cursor()
+
+    s = """select password from admin where email=%s"""
+
+    cursor.execute(s, (login_email,))
+    res = cursor.fetchone()
+    mysql.connection.commit()
+    cursor.close()
+    if res == None:
+        return render_template('signup.html', msg="You need to register first")
+    else:
+        res = str(res)
+        le = len(res)
+        password = res[2:le-3]
+        print(password)
+        if password == login_password:
+            return render_template('make.html')
+        else:
+            return render_template('login1.html', msg="Wrong password enterd")
+
+
+@app.route('/admin_signup', methods=['POST', 'GET'])
+def admin_signup():
+    # if request.method == 'POST':
+    print(request)
+    username = request.form.get('username')
+    signup_email = request.form.get('signup_email')
+    signup_password = request.form.get('signup_password')
+    signup_confirm_password = request.form.get('signup_confirm_password')
+
+    cursor = mysql.connection.cursor()
+
+    s = """select * from admin where email=%s"""
+
+    cursor.execute(s, (signup_email,))
+    res = cursor.fetchall()
+    mysql.connection.commit()
+    cursor.close()
+
+    if res == None:
+        return render_template('login1.html', msg="You are already registered")
+
+    if signup_password != signup_confirm_password:
+        return render_template('signup.html', msg="Password must be same")
+    elif len(signup_password) < 8 or len(signup_password) > 25 or not (re.search("[a-z]", signup_password)) or not (re.search("[A-Z]", signup_password)) or not (re.search("[0-9]", signup_password)):
+        return render_template('signup.html', msg="Password length must in between 8-25 and contain one uppercase ,lowercase and one digit. ")
+    else:
+        cursor = mysql.connection.cursor()
+
+        cursor.execute("""insert into admin values (%s,%s,%s)""",
+                       (signup_email, username, signup_password))
+
+        mysql.connection.commit()
+        cursor.close()
+        return render_template('login1.html', msg='Successfully registered')
+
+
+@app.route('/leaderboard', methods=['POST', 'GET'])
+def leaderboard():
+    if request.method == 'POST':
+        x = request.form.get('quiz_id')
+
+        qid = str(x)
+        qid = qid.strip()
+        cursor = mysql.connection.cursor()
+
+        s = """select roll_no,marks from result_main where quiz_id=%s order by marks desc"""
+
+        cursor.execute(s, (qid,))
+        res = cursor.fetchall()
+        mysql.connection.commit()
+        cursor.close()
+        print(res)
+        marks = []
+        rollno = []
+        ct = 1
+        rank = []
+        for x in res:
+            print(x)
+            rank.append(ct)
+            ct += 1
+            rollno.append(x[0])
+            marks.append(x[1])
+        result = zip(rank, rollno, marks)
+        return render_template('leaderboard.html', result=result, qid=qid)
 
 
 @app.route('/upload', methods=['POST'])
@@ -237,9 +347,11 @@ def start():
 def submit():
     print(request.form)
     x = request.form.get('quiz_id')
+    y = request.form.get('roll_no')
     ct = 0
     qid = str(x)
     qid = qid.strip()
+    roll_no = (str(y)).strip()
     try:
         cursor = mysql.connection.cursor()
 
@@ -313,6 +425,27 @@ def submit():
         cheat = 0
         return render_template('error.html', msg="You have done cheating")
     else:
+        cursor = mysql.connection.cursor()
+
+        s = """select * from result_main where quiz_id=%s and roll_no=%s"""
+
+        cursor.execute(s, (qid, roll_no,))
+        answers = cursor.fetchall()
+        if answers == None:
+            cursor.execute(''' INSERT INTO result_main  VALUES(%s,%s,%s)''',
+                           (qid, roll_no, marks))
+
+            mysql.connection.commit()
+
+            cursor.close()
+        else:
+            cursor.execute(
+                '''Delete from result_main where quiz_id=%s and roll_no=%s''', (qid, roll_no))
+            cursor.execute(
+                ''' INSERT INTO result_main VALUES(%s,%s,%s)''', (qid, roll_no, ct))
+
+            mysql.connection.commit()
+
         return render_template('answers.html', info=info, marks=ct, total=len(que), empty=empty)
 
 

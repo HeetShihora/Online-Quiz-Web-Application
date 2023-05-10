@@ -88,3 +88,120 @@ margin-top: 20px;
   opacity: .8;
 
 }
+/* .footer {
+	background-color: black;
+	margin-top: 0vh;
+} */
+
+#loginContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.card-footer > .control {
+	display: flex;
+	flex-grow: 1;
+}
+
+.card-footer > .control > button {
+	width: 100%;
+	border-radius: 0%;
+}
+
+#googleBtn {
+	margin-left: 42%;
+}
+
+.card-footer > .control > button {
+	width: 100%;
+	border-radius: 0%;
+}
+
+.registerForm {
+	margin-left: 25%;
+	margin-right: 25%;
+}
+
+th {
+	background-color: #bdb76b;
+	color: white;
+	width: 10%;
+}
+
+td,
+th {
+	padding: 5px;
+	border: 0;
+}
+
+td {
+	border-bottom: 1px dotted #bdb76b;
+}
+
+.nav-item a {
+	/* font-weight: bold; */
+	position: relative;
+	font-family: "poppins", sans-serif;
+	text-transform: uppercase;
+	margin-left: 5px;
+}
+
+.nav-item a:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	background-color: #ff3c78;
+	width: 0;
+	height: 3px;
+	bottom: -10px;
+	transition: 0.5s;
+}
+
+
+.nav-item a:hover::after {
+	width: 100%;
+}
+.invoice {
+	background-color: #fff;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	margin: 50px auto;
+	max-width: 800px;
+	padding: 50px;
+}
+
+.invoice-header {
+	border-bottom: 1px solid #ddd;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 30px;
+}
+
+.invoice-header h2 {
+	margin: 0;
+}
+
+.invoice-header p {
+	margin: 0;
+	font-size: 18px;
+	color: #555;
+}
+
+.invoice-body {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 20px;
+	margin-bottom: 30px;
+}
+
+.invoice-body p {
+	margin: 0;
+	font-size: 16px;
+	color: #555;
+}
+
+.invoice-body h3 {
+	margin-top: 0;
+	font-size: 24px;
+	color: #555;
+}

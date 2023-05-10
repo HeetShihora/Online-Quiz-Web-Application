@@ -1,0 +1,28 @@
+
+
+{% extends "layout.html" %}
+{% block title%}
+Leader Board
+{%endblock%}
+{% block body %}
+<div class="container">
+    <div class="card mt-5 quiz_start">
+        <div class="card-header">
+            <h4>Fill below details</h4>
+        </div>
+        <div class="card-body text-center">
+            <form action="/leaderboard" method="post" enctype="multipart/form-data">
+                <div>
+                    <label for="quiz_id">Quiz Id
+                        <span class="text-danger">*</span> : </label>
+
+
+                    <input type="text" id="quiz_id" name="quiz_id" placeholder="id" required>
+                </div>
+                <button class="btn btn-success mt-3" id="full">View Leader Board</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block title%}
+Leader Board
+{%endblock%}
+{% block body %}
+
+<h3 class=" card text-center mt-5" style="width:900px;margin    :auto">Leader Board for quiz id : {{qid}}</h3>
+<div class="container d-flex justify-content-center flex-column">
+
+    <div class="" style="width:40%;margin:auto; margin-top:50px;">
+        <table>
+            <tr>
+                <th>
+                    <div>
+                        <h4><b>
+                        Rank</b></h4>
+                    </div>
+                </th>
+                <th>
+                    <div>
+                        <h4><b>Roll No</b></h4>
+                    </div>
+                </th>
+                <th>
+
+                    <div>
+                        <h4> <b>Marks</b></h4>
+                    </div>
+                </th>
+
+            </tr>
+
+            {%for rank,rollno,marks in result%}
+
+            <tr>
+
+                <td>
+                    <div style="font-size:1.5em">{{rank}}</div>
+                </td>
+
+                <td>
+                    <div style="font-size: 1.5em;">{{rollno}}</div>
+                </td>
+
+                <td>
+                    <div style="font-size: 1.5em;">{{marks}}</div>
+                </td>
+
+
+            </tr>
+            {%endfor%}
+
+        </table>
+    </div>
+
+</div>
+
+
+
+
+
+{% endblock %}

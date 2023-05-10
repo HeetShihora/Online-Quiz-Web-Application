@@ -14,8 +14,7 @@
 
     <link href="{{ url_for('static',filename='app.css')}}" rel="stylesheet" />
     <style>
-        /* Style for the questions card */
-        /* Style for the questions card */
+    
 
         .questions.card {
             border: 1px solid;
@@ -165,13 +164,18 @@
                     <span class="text-danger">*</span> : </label>
 
 
-                <input type="text" id="quiz_id" name="quiz_id" placeholder="id" required>
+                <input type="text" id="quiz_id" name="quiz_id" placeholder="Id" required>
+<br>
+                <label for="roll_no">Roll No
+                    <span class="text-danger">*</span> : </label>
+
+
+                <input type="text" id="roll_no" name="roll_no" placeholder="Roll no" required>
             </div>
             <ol>
 
                 {% for q in questions%}
-                <!-- <form action="" required id="{{q}}"> -->
-                <!-- <fieldset id="{{q}}"> -->
+               
                 <div class="questions card ">
                     <li>{{q[1]}}</li>
                     <ol>
